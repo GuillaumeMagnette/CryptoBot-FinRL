@@ -8,7 +8,8 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pickle
 from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3.common import logger
+#from stable_baselines3.common import logger
+from stable_baselines3.common import utils
 
 
 class StockTradingEnv(gym.Env):
@@ -58,6 +59,7 @@ class StockTradingEnv(gym.Env):
         self.model_name=model_name
         self.mode=mode 
         self.iteration=iteration
+        self.logger = utils.configure_logger()
         # initalize state
         self.state = self._initiate_state()
         
@@ -206,11 +208,11 @@ class StockTradingEnv(gym.Env):
                 plt.close()
 
             # Add outputs to logger interface
-            logger.record("environment/portfolio_value", end_total_asset)
-            logger.record("environment/total_reward", tot_reward)
-            logger.record("environment/total_reward_pct", (tot_reward / (end_total_asset - tot_reward)) * 100)
-            logger.record("environment/total_cost", self.cost)
-            logger.record("environment/total_trades", self.trades)
+            self.logger.record("environment/portfolio_value", end_total_asset)
+            self.logger.record("environment/total_reward", tot_reward)
+            self.logger.record("environment/total_reward_pct", (tot_reward / (end_total_asset - tot_reward)) * 100)
+            self.logger.record("environment/total_cost", self.cost)
+            self.logger.record("environment/total_trades", self.trades)
 
             return self.state, self.reward, self.terminal, {}
 

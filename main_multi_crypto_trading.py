@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     # Data Prep
     #fname_processed ="data/Binance/preprocessed_binance_1min_single.csv"
-    fname_processed ="data/Binance/preprocessed_binance_1hour.csv"
+    fname_processed ="/content/CryptoBot-FinRL/data/Binance/spot-1min/preprocessed_binance_1min_single.csv"
     
     if opt.prep_flag == 1:
         # run the prep
